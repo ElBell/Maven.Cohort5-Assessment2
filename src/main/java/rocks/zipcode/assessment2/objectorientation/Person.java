@@ -1,5 +1,7 @@
 package rocks.zipcode.assessment2.objectorientation;
 
+import java.util.Objects;
+
 /**
  * @author leon on 28/11/2018.
  * @ATTENTION_TO_STUDENTS - Ensure that you have completed the `Address` class before attempting this class
@@ -50,32 +52,26 @@ public class Person {
     }
 
     @Override
-    public String toString() {
-        return String.format("Person{id=%d, name='%s', address=%s}", id, name, address);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(id, person.id) &&
+                Objects.equals(name, person.name) &&
+                Objects.equals(address, person.address);
     }
 
     @Override
-    public boolean equals(Object o) {
-        Person otherPerson = (Person) o;
-        boolean idsEqual = true;
-        if(!(otherPerson.getId() == null || id == null)) {
-            idsEqual = otherPerson.getId().equals(id);
-        }
-        boolean addressEqual = true;
-        if(!(otherPerson.getAddress() == null || address == null)) {
-            addressEqual = otherPerson.getAddress().equals(address);
-        }
-        boolean nameEqual = true;
-        if(!(otherPerson.getName() == null || name == null)) {
-            nameEqual = otherPerson.getName().equals(name);
-        }
-        return nameEqual && idsEqual && addressEqual;
+    public int hashCode() {
+        return Objects.hash(id, name, address);
     }
 
-    public static void main(String[] args) {
-        Person person = new Person();
-        Address address1 = person.getAddress();
-        Address address2 = new Address();
-        System.out.println(address1.equals(address2));
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                '}';
     }
 }
